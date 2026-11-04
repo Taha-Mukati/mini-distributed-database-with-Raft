@@ -7,5 +7,8 @@ public interface Transport {
     
     public void send (RaftMessage message, String destinationNodeId );
 
-    public void start (MessageHandler handler)
+    public void start (MessageHandler handler);
+
+    public void stop ();
+    
 }
