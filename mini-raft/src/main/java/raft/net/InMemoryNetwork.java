@@ -16,8 +16,8 @@ public class InMemoryNetwork {
         handlers.remove(nodeId);
     }
 
-    public void deliver (String desinationNodeId, RaftMessage message) {
-        MessageHandler handler = handlers.get(desinationNodeId);
+    public void deliver (String destinationNodeId, RaftMessage message) {
+        MessageHandler handler = handlers.get(destinationNodeId);
         if (handler != null) {
             handler.onMessage(message);
         }
