@@ -4,21 +4,30 @@ import raft.rpc.RaftMessage;
 public class InMemoryTransport implements Transport {
     private MessageHandler handler;
 
-    @Override
-    public void send(RaftMessage message, String destinationNodeId) {
-        if (handler != null) {
-            handler.onMessage(message);
-        }
+    private final String nodeId;
+    private final InMemoryNetwork network;
+
+
+    public InMemoryTransport(String nodeId, InMemoryNetwork network) {
+        this.nodeId = nodeId;
+        this.network = network;
     }
 
     @Override
     public void start(MessageHandler handler) {
-        this.handler = handler;
+        network.register(nodeId, handler);
     }
 
     @Override
     public void stop() {
-        this.handler = null;
+        network.unregister(nodeId);
     }
     
+    @Override
+    public void send(String destinationNodeId, RaftMessage message) {
+        network.deliver(destinationNodeId, message);
+    }
+
+
+
 }
