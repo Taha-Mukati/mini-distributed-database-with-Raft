@@ -5,4 +5,5 @@ public sealed interface RaftMessage
             AppendEntriesRequest, AppendEntriesResponse {
     
     long term();
+    String from();
 }
